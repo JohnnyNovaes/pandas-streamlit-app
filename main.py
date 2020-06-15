@@ -31,17 +31,21 @@ def main():
 
     # dataFrame.head()
     if select == selection_options[1]:
-
+        st.subheader("Result")
         slider = st.slider('Select the number of rows', 1, 890)
         st.dataframe(df.head(slider))
         st.subheader('Description')
         st.text(f'Returns the first {slider} rows')
-        st.subheader(f'Command: ')
+        st.subheader(f'Command ')
         st.text(f'df.head({slider})')
 
     # dataFrame.index
     if select == selection_options[2]:
+        st.subheader("Result")
         st.text(f'{df.index}')
+        st.dataframe(df.index)
+        st.subheader('Description')
+        st.text('The index (row labels) of the DataFrame.')
 
 
 
