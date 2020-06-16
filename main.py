@@ -66,11 +66,11 @@ def main():
     if select == selection_options[3]:
         st.header('General Information of Data Frames')
         st.header("(pandas.DataFrame.shape)")
+        st.subheader('Description')
+        st.text('Return a tuple representing the dimensionality of the DataFrame.')
         st.subheader("Result")
         st.text(f'{df.shape}')
         st.dataframe(df.shape)
-        st.subheader('Description')
-        st.text('Return a tuple representing the dimensionality of the DataFrame.')
         st.subheader("Command")
         st.text("dataFrame.shape")
 
@@ -78,11 +78,11 @@ def main():
     if select == selection_options[4]:
         st.header('General Information of Data Frames')
         st.header("(pandas.DataFrame.isna)")
+        st.subheader('Description')
+        st.text('Return a boolean same-sized object indicating if the values are NA.')
         st.subheader("Result")
         st.text(f'{df.isna()}')
         st.dataframe(df.isna())
-        st.subheader('Description')
-        st.text('Return a boolean same-sized object indicating if the values are NA.')
         st.subheader("Command")
         st.text("dataFrame.isna()")
 
@@ -90,13 +90,28 @@ def main():
     if select == selection_options[5]:
         st.header('General Information of Data Frames')
         st.header("(pandas.DataFrame.columns)")
+        st.subheader('Description')
+        st.text('The column labels of the DataFrame.')
         st.subheader("Result")
         st.text(f'{df.columns}')
         st.dataframe(df.columns)
-        st.subheader('Description')
-        st.text('The column labels of the DataFrame.')
         st.subheader("Command")
         st.text("dataFrame.columns")
+    # Selecting Columns
+        st.header("Selecting Columns")
+        st.subheader("Description ")
+        st.text("Selecting columns in a Data Frame.")
+        columns_list = list(df.columns)
+        num_columns = st.slider("Select n° of column(s)", 0, 12)
+        index = range(0, num_columns)
+    # Create a concat string of the columns.
+        col = " "
+        for n in index:
+            col = col + " " + df.columns[n]
+    # Show Data Frame Columns
+        st.dataframe(df[col.split()])
+        st.header("Command")
+        st.text(f'df[{col.split()}]')
 
 
 
