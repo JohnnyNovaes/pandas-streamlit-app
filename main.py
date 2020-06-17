@@ -22,7 +22,8 @@ def main():
                          'dataFrame.index',
                          'dataFrame.shape',
                          'dataFrame.isna()',
-                         'dataFrame.columns']
+                         'dataFrame.columns',
+                         'dataFrame.loc[]']
 
     select = st.sidebar.selectbox('General Information of DF', selection_options)
 
@@ -37,6 +38,7 @@ def main():
         st.text(f'3){selection_options[3]} : Return a tuple representing the dimensionality of the DataFrame.')
         st.text(f'4){selection_options[4]} : Return a boolean same-sized object indicating if the values are NA.')
         st.text(f'5){selection_options[5]} : The column labels of the DataFrame.')
+        st.text(f'6){selection_options[6]} : Access a group of rows and columns by label(s) or a boolean array.')
 
     # dataFrame.head()
     if select == selection_options[1]:
@@ -97,21 +99,34 @@ def main():
         st.dataframe(df.columns)
         st.subheader("Command")
         st.text("dataFrame.columns")
-    # Selecting Columns
+        # Selecting Columns
         st.header("Selecting Columns")
         st.subheader("Description ")
         st.text("Selecting columns in a Data Frame.")
-        columns_list = list(df.columns)
-        num_columns = st.slider("Select n° of column(s)", 0, 12)
+        st.subheader("Result")
+        num_columns = st.slider("Select n° of column(s)", 1, 12)
         index = range(0, num_columns)
-    # Create a concat string of the columns.
+        # Concatenate in a string of the columns.
         col = " "
         for n in index:
             col = col + " " + df.columns[n]
-    # Show Data Frame Columns
+        # Show Data Frame Columns
         st.dataframe(df[col.split()])
-        st.header("Command")
-        st.text(f'df[{col.split()}]')
+        st.subheader("Command")
+        st.text(f'dataFrame[{col.split()}]')
+
+    # dataFrame.loc
+    if select == selection_options[6]:
+        st.header('General Information of Data Frames')
+        st.header("(pandas.DataFrame.columns)")
+        st.subheader('Description')
+        st.text('Access a group of rows and columns by label(s) or a boolean array.')
+        st.subheader("Result")
+        start_row = st.slider('Start Row', 0, len(df.index))
+        finish_row = st.slider('Finish Row', start_row, len(df.index))
+        st.dataframe(df.loc[start_row: finish_row])
+        st.subheader("Command")
+        st.text(f'dataFrame.loc[{start_row}:{finish_row}]')
 
 
 
