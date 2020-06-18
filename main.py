@@ -172,19 +172,18 @@ def main():
             if button:
                 # Find a word
                 if word_num == 'Word':
-                    if type(df[column][0]) == str:
-                        try:
+                    try:
+                        if type(df[column][0]) == str:
                             st.dataframe(df[df[column].str.contains(find_word)][columns].loc[start_row:finish_row])
-                        except AttributeError:
-                            st.text("ERROR - Please, type a word to find in the data frame!!")
-
-                    else:
-                        st.text('Please, choose a data.series(column) with str type.\n'
-                                'In other words: Choose a column with strings inside.')
-
-                        # Word result code
-                        st.subheader("Code")
-                        st.text(f"df[df['{column}'].str.contains({find_word})][{columns}].loc[{start_row}:{finish_row}]")
+                            # Word result code
+                            st.subheader("Code")
+                            st.text(f"df[df['{column}'].str.contains('{find_word}')]"
+                                    f"[{columns}].loc[{start_row}:{finish_row}]")
+                        else:
+                            st.text('Please, choose a data.series(column) with str type.\n'
+                                    'In other words: Choose a column with strings inside.')
+                    except AttributeError:
+                        st.text("ERROR - Please, type a word to find in the data frame!!")
 
                 # Find a number
                 elif word_num == 'Number':
