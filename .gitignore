@@ -1,6 +1,5 @@
 venv/
 files/
-*.csv
 *.ipynb
 project_resume
 setup.sh
