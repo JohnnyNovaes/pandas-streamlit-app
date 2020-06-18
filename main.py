@@ -18,12 +18,13 @@ def main():
 
     # Select Box List
     selection_options = ['Index',
-                         '1) dataFrame.head()',
-                         '2) dataFrame.index',
-                         '3) dataFrame.shape',
-                         '4) dataFrame.isna()',
-                         '5) dataFrame.columns',
-                         '6) dataFrame.loc[]']
+                         '1) DataFrame.head()',
+                         '2) DataFrame.index',
+                         '3) DataFrame.shape',
+                         '4) DataFrame.isna()',
+                         '5) DataFrame.columns',
+                         '6) DataFrame.loc[]',
+                         '7) Filtering']
 
     select = st.sidebar.selectbox('General Information of DF', selection_options)
 
@@ -39,6 +40,7 @@ def main():
         st.text(f'{selection_options[4]} : Return a boolean same-sized object indicating if the values are NA.')
         st.text(f'{selection_options[5]} : The column labels of the DataFrame.')
         st.text(f'{selection_options[6]} : Access a group of rows and columns by label(s) or a boolean array.')
+        st.text(f'{selection_options[7]} : How to filter and select some data in your Data Frame.')
 
     # dataFrame.head()
     if select == selection_options[1]:
@@ -128,8 +130,49 @@ def main():
         st.subheader("Command")
         st.text(f'dataFrame.loc[{start_row}:{finish_row}]')
 
+    # Filtering
+    if select == selection_options[7]:
+        st.header('General Information of Data Frames')
+        st.subheader('Filtering')
+        st.text('This sector shows how to select some specifics data in your data frame. ')
+        st.text('The data set used here is the Titanic, from kaggle.com')
+        st.subheader('Titanic Data Set')
+        st.dataframe(df.head())
+        st.subheader('Selecting data')
+        st.text('1º - Select the columns you want (You can chose more than one!)')
+        columns = st.multiselect('Chose the columns', df.columns)
+        st.text('2º - Select the rows you want ')
+        start_row = st.slider('Start Row', 0, len(df.index))
+        finish_row = st.slider('Finish Row', start_row, len(df.index))
+        st.text('3º - Chose a column and a word - or number -  you want to find in this column.')
+        column = st.selectbox('Chose a Columns', df.columns)
+        word_num = st.radio('Do you want to find a word or a number?', ['Word', 'Number'])
+        find_word = st.text_input(f'Type a ({word_num}) you want to find in the ({column}) column')
+        if word_num == 'Number':
+            operator = st.radio(f'Do you want to find in {column} a number(s) (smaller|bigger|equal)?'
+                                f' :', ['Smaller( < )', 'Bigger( > )', 'Equal( == )'])
+        st.subheader('Result')
+        button = st.button('Filter')
+        if len(columns) == 0:
+            st.text('Please select some column(s)!')
+        else:
+            if button:
+                if word_num == 'Word':
+                    try:
+                        st.dataframe(df[df[column].str.contains(find_word)][columns].loc[start_row:finish_row])
+                    except AttributeError:
+                        st.text("ERROR - Please, type a word to find in the data frame!!")
+                elif word_num == 'Number':
 
-
+                    try:
+                        if operator == 'Smaller( < )':
+                            st.dataframe(df[df[column] < int(find_word)][columns].loc[start_row:finish_row])
+                        elif operator == 'Bigger( > )':
+                            st.dataframe(df[df[column] > int(find_word)][columns].loc[start_row:finish_row])
+                        elif operator == 'Equal( == )':
+                            st.dataframe(df[df[column] == int(find_word)][columns].loc[start_row:finish_row])
+                    except ValueError:
+                        st.text("ERROR - Please, type a number to find in the data frame!!")
 
 
 if __name__ == '__main__':
