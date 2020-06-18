@@ -18,12 +18,12 @@ def main():
 
     # Select Box List
     selection_options = ['Index',
-                         'dataFrame.head()',
-                         'dataFrame.index',
-                         'dataFrame.shape',
-                         'dataFrame.isna()',
-                         'dataFrame.columns',
-                         'dataFrame.loc[]']
+                         '1) dataFrame.head()',
+                         '2) dataFrame.index',
+                         '3) dataFrame.shape',
+                         '4) dataFrame.isna()',
+                         '5) dataFrame.columns',
+                         '6) dataFrame.loc[]']
 
     select = st.sidebar.selectbox('General Information of DF', selection_options)
 
@@ -33,12 +33,12 @@ def main():
         st.subheader('General Information of Data Frames')
         st.text('Provides examples of the basic functions for general information of data frames,\nin a '
                 'interactive way.')
-        st.text(f'1){selection_options[1]} : Returns the first n rows')
-        st.text(f'2){selection_options[2]} : The index (row labels) of the DataFrame.')
-        st.text(f'3){selection_options[3]} : Return a tuple representing the dimensionality of the DataFrame.')
-        st.text(f'4){selection_options[4]} : Return a boolean same-sized object indicating if the values are NA.')
-        st.text(f'5){selection_options[5]} : The column labels of the DataFrame.')
-        st.text(f'6){selection_options[6]} : Access a group of rows and columns by label(s) or a boolean array.')
+        st.text(f'{selection_options[1]} : Returns the first n rows')
+        st.text(f'{selection_options[2]} : The index (row labels) of the DataFrame.')
+        st.text(f'{selection_options[3]} : Return a tuple representing the dimensionality of the DataFrame.')
+        st.text(f'{selection_options[4]} : Return a boolean same-sized object indicating if the values are NA.')
+        st.text(f'{selection_options[5]} : The column labels of the DataFrame.')
+        st.text(f'{selection_options[6]} : Access a group of rows and columns by label(s) or a boolean array.')
 
     # dataFrame.head()
     if select == selection_options[1]:
