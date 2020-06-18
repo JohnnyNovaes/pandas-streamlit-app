@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from os import system
 
 
 def main():
@@ -50,8 +51,8 @@ def main():
         slider = st.slider('Select the number of rows', 1, 890)
         st.dataframe(df.head(slider))
         st.subheader('Description')
-        st.text(f'Returns the first {slider} rows')
-        st.subheader(f'Command ')
+        st.text(f'Returns the first n rows')
+        st.subheader(f'Code ')
         st.text(f'df.head({slider})')
 
     # dataFrame.index
@@ -63,7 +64,7 @@ def main():
         st.subheader("Result")
         st.text(f'{df.index}')
         st.dataframe(df.index)
-        st.subheader('Command')
+        st.subheader('Code')
         st.text('dataFrame.index')
 
     # dataFrame.shape
@@ -75,7 +76,7 @@ def main():
         st.subheader("Result")
         st.text(f'{df.shape}')
         st.dataframe(df.shape)
-        st.subheader("Command")
+        st.subheader("Code")
         st.text("dataFrame.shape")
 
     # dataFrame.isna()
@@ -87,7 +88,7 @@ def main():
         st.subheader("Result")
         st.text(f'{df.isna()}')
         st.dataframe(df.isna())
-        st.subheader("Command")
+        st.subheader("Code")
         st.text("dataFrame.isna()")
 
     # dataFrame.columns()
@@ -99,7 +100,7 @@ def main():
         st.subheader("Result")
         st.text(f'{df.columns}')
         st.dataframe(df.columns)
-        st.subheader("Command")
+        st.subheader("Code")
         st.text("dataFrame.columns")
         # Selecting Columns
         st.header("Selecting Columns")
@@ -114,7 +115,7 @@ def main():
             col = col + " " + df.columns[n]
         # Show Data Frame Columns
         st.dataframe(df[col.split()])
-        st.subheader("Command")
+        st.subheader("Code")
         st.text(f'dataFrame[{col.split()}]')
 
     # dataFrame.loc
@@ -127,11 +128,12 @@ def main():
         start_row = st.slider('Start Row', 0, len(df.index))
         finish_row = st.slider('Finish Row', start_row, len(df.index))
         st.dataframe(df.loc[start_row: finish_row])
-        st.subheader("Command")
+        st.subheader("Code")
         st.text(f'dataFrame.loc[{start_row}:{finish_row}]')
 
     # Filtering
     if select == selection_options[7]:
+        # Description
         st.header('General Information of Data Frames')
         st.subheader('Filtering')
         st.text('This sector shows how to select some specifics data in your data frame. ')
@@ -139,40 +141,74 @@ def main():
         st.subheader('Titanic Data Set')
         st.dataframe(df.head())
         st.subheader('Selecting data')
+
+        # Selecting the columns
         st.text('1º - Select the columns you want (You can chose more than one!)')
         columns = st.multiselect('Chose the columns', df.columns)
+
+        # Selecting the rows
         st.text('2º - Select the rows you want ')
         start_row = st.slider('Start Row', 0, len(df.index))
         finish_row = st.slider('Finish Row', start_row, len(df.index))
+
+        # Selecting a column and word to find in the data
         st.text('3º - Chose a column and a word - or number -  you want to find in this column.')
         column = st.selectbox('Chose a Columns', df.columns)
         word_num = st.radio('Do you want to find a word or a number?', ['Word', 'Number'])
         find_word = st.text_input(f'Type a ({word_num}) you want to find in the ({column}) column')
+
+        # Choosing the comparison operators
         if word_num == 'Number':
             operator = st.radio(f'Do you want to find in {column} a number(s) (smaller|bigger|equal)?'
                                 f' :', ['Smaller( < )', 'Bigger( > )', 'Equal( == )'])
+        # Result
         st.subheader('Result')
         button = st.button('Filter')
+
+        # Finding words and numbers
         if len(columns) == 0:
             st.text('Please select some column(s)!')
         else:
             if button:
+                # Find a word
                 if word_num == 'Word':
-                    try:
-                        st.dataframe(df[df[column].str.contains(find_word)][columns].loc[start_row:finish_row])
-                    except AttributeError:
-                        st.text("ERROR - Please, type a word to find in the data frame!!")
+                    if type(df[column][0]) == str:
+                        try:
+                            st.dataframe(df[df[column].str.contains(find_word)][columns].loc[start_row:finish_row])
+                        except AttributeError:
+                            st.text("ERROR - Please, type a word to find in the data frame!!")
+
+                    else:
+                        st.text('Please, choose a data.series(column) with str type.\n'
+                                'In other words: Choose a column with strings inside.')
+
+                        # Word result code
+                        st.subheader("Code")
+                        st.text(f"df[df['{column}'].str.contains({find_word})][{columns}].loc[{start_row}:{finish_row}]")
+
+                # Find a number
                 elif word_num == 'Number':
 
                     try:
                         if operator == 'Smaller( < )':
                             st.dataframe(df[df[column] < int(find_word)][columns].loc[start_row:finish_row])
+                            op = '<'
                         elif operator == 'Bigger( > )':
                             st.dataframe(df[df[column] > int(find_word)][columns].loc[start_row:finish_row])
+                            op = '>'
                         elif operator == 'Equal( == )':
                             st.dataframe(df[df[column] == int(find_word)][columns].loc[start_row:finish_row])
+                            op = '=='
+                        # Number result code
+                        st.subheader("Code")
+                        st.text(f"dataFrame[dataFrame['{column}'] {op} int({find_word})]"
+                                f"[{columns}].loc[{start_row}:{finish_row}]")
                     except ValueError:
                         st.text("ERROR - Please, type a number to find in the data frame!!")
+
+                    except TypeError:
+                        st.text(f"ERROR - Please, choose a data.series(column) with int type."
+                                f"\nIn other words: Choose a column with numbers inside.")
 
 
 if __name__ == '__main__':
