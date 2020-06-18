@@ -3,5 +3,4 @@ files/
 *.csv
 *.ipynb
 project_resume
-Procfile
 setup.sh
