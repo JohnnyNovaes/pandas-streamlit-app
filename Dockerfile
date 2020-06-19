@@ -10,8 +10,5 @@ EXPOSE 8501
 
 COPY . /interactive-pandas-app
 
-ENTRYPOINT ["streamlit","run"]
-
-CMD ["main.py"]
-
+CMD streamlit run --server.port 8080 --server.enableCORS false app.py
 

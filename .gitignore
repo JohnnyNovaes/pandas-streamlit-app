@@ -3,5 +3,6 @@ files/
 *.ipynb
 project_resume
 setup.sh
-
+*.gif
+*.png
 
