@@ -10,7 +10,5 @@ You can manipulate a data set in a intuitive way and see the resulting code, lea
 
 ## Example
 
-![](example.gif)
-
-
+![alt-text](https://s7.gifyu.com/images/example0aee5caf278094a9.gif)
 
