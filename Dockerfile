@@ -1,14 +1,16 @@
-FROM python:3.7
+FROM python:3.7.3-stretch
 
-WORKDIR /interactive-pandas-app
+# Working Directory
+WORKDIR /interactive-pandas
 
-COPY requirements.txt ./requirements.txt
+# Copy source code to working directory
+COPY . main.py /interactive-pandas/
 
-RUN pip3 install -r requirements.txt
+EXPOSE 8080
 
-EXPOSE 8501
+# Install packages from requirements.txt
+RUN pip install --upgrade pip &&\
+    pip install --trusted-host pypi.python.org -r requirements.txt
 
-COPY . /interactive-pandas-app
-
-CMD streamlit run --server.port 8501 --server.enableCORS false main.py
+CMD streamlit run --server.port 8080 --server.enableCORS false main.py
 
