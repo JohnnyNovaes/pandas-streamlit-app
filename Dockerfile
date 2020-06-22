@@ -11,7 +11,7 @@ COPY . ./
 
 # --------------- Install python packages using `pip` ---------------
 
-RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt \
+RUN pip3 install --upgrade pip3 && pip3 install --no-cache-dir -r requirements.txt \
 	&& rm -rf requirements.txt
 
 # --------------- Configure Streamlit ---------------
@@ -22,11 +22,11 @@ RUN bash -c 'echo -e "\
 	enableCORS = false\n\
 	" > /root/.streamlit/config.toml'
 
-EXPOSE 8503
+EXPOSE 8501
 EXPOSE 8080
 
 # --------------- Export envirennement variable ---------------
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
-CMD ["streamlit", "run", "--server.port", "8503", "main.py"]
+CMD ["streamlit", "run", "--server.port", "8501", "main.py"]
