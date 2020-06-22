@@ -28,4 +28,4 @@ EXPOSE 5000
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
-CMD ["streamlit", "run", "--server.port", "5000", "main.py"]
+CMD ["streamlit", "run", "--server.port", "main.py"]
