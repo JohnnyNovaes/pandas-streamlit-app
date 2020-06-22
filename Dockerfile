@@ -11,8 +11,7 @@ COPY . ./
 
 # --------------- Install python packages using `pip` ---------------
 
-RUN pip3 install --upgrade pip3 && pip3 install --no-cache-dir -r requirements.txt \
-	&& rm -rf requirements.txt
+RUN pip3 install -r requirements.txt
 
 # --------------- Configure Streamlit ---------------
 RUN mkdir -p /root/.streamlit
