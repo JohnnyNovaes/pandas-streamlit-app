@@ -5,4 +5,4 @@ project_resume
 setup.sh
 *.gif
 *.png
-
+.idea/
