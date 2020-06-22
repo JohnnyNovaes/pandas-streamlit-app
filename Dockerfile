@@ -25,10 +25,10 @@ RUN bash -c 'echo -e "\
 	" > /root/.streamlit/config.toml'
 
 
-EXPOSE 5000
+EXPOSE 8501
 
 # --------------- Export envirennement variable ---------------
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
-CMD ["streamlit", "run", "main.py"]
+CMD ["streamlit", "run","--server.port", "8501", "main.py"]
