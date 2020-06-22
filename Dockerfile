@@ -11,7 +11,6 @@ RUN pip install --upgrade pip &&\
 EXPOSE 8501
 
 COPY . /interactive-pandas-app
-
 ENTRYPOINT ["streamlit","run"]
 
-CMD streamlit run --server.port 8501 --server.enableCORS false main.py
+CMD ["main.py"]
