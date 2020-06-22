@@ -81,6 +81,7 @@ pandocfilters==1.4.2
 paramiko==2.6.0
 parso==0.7.0
 pathtools==0.1.2
+pbr==5.4.5
 pexpect==4.6.0
 pickleshare==0.7.5
 Pillow==7.0.0
@@ -134,6 +135,7 @@ system-service==0.3
 systemd-python==234
 terminado==0.8.3
 testpath==0.4.4
+testresources==2.0.1
 toml==0.10.1
 toolz==0.10.0
 tornado==5.1.1
