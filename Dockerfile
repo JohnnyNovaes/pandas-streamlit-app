@@ -1,4 +1,4 @@
-FROM python:3.8.2
+FROM python:3.8
 
 LABEL maintainer "João Herique Saraceni  <www.linkedin.com/in/joãohenriquesaraceninovaes>"
 
