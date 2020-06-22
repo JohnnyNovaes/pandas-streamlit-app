@@ -1,4 +1,6 @@
 build:
   docker:
     web: Dockerfile
+run:
+  web: streamlit run --server.enableCORS false --server.port $PORT main.py
 

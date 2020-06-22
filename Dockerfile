@@ -24,11 +24,3 @@ RUN bash -c 'echo -e "\
 	port = $PORT\n\
 	" > /root/.streamlit/config.toml'
 
-
-EXPOSE 80
-
-# --------------- Export envirennement variable ---------------
-ENV LC_ALL=C.UTF-8
-ENV LANG=C.UTF-8
-
-CMD ["streamlit", "run","--server.port", "80", "main.py"]
