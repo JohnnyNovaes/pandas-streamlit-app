@@ -17,14 +17,13 @@ RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt 
 # --------------- Configure Streamlit ---------------
 RUN mkdir -p /root/.streamlit
 
-RUN bash -c
-"\
-[server]\n\
-headless = true\n\
-port = $PORT\n
-enableCORS = false\n\
-\n\
-" > ~/.streamlit/config.toml
+RUN bash -c 'echo -e "\
+	[server]\n\
+	enableCORS = false\n\
+	headless = true\n\
+	port = $PORT\n\
+	" > /root/.streamlit/config.toml'
+
 
 EXPOSE 5000
 
