@@ -20,6 +20,8 @@ RUN bash -c 'echo -e "\
 EXPOSE 8501
 EXPOSE 8080
 
+
 COPY . /interactive-pandas-app
 
-CMD ["streamlit", "run", "--server.port", "8080", "main.py"]
+CMD streamlit run --server.port 8501 --server.enableCORS false main.py
+
