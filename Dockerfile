@@ -22,11 +22,11 @@ RUN bash -c 'echo -e "\
 	enableCORS = false\n\
 	" > /root/.streamlit/config.toml'
 
-EXPOSE 8501
+EXPOSE 8503
 EXPOSE 8080
 
 # --------------- Export envirennement variable ---------------
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
-CMD ["streamlit", "run", "--server.port", "$PORT", "main.py"]
+CMD ["streamlit", "run", "--server.port", "8503", "main.py"]
