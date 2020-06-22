@@ -1,15 +1,20 @@
 FROM python:3.7
 
-WORKDIR /interactive-pandas-app
+LABEL maintainer "João Herique Saraceni  <www.linkedin.com/in/joãohenriquesaraceninovaes>"
 
-COPY requirements.txt ./requirements.txt
 
-# Install packages from requirements.txt
-RUN pip install --upgrade pip &&\
-    pip install --trusted-host pypi.python.org -r requirements.txt
+# Copy local code to the container image.
+ENV  APP_HOME/app
 
-# Configure Stremlit
+WORKDIR $APP_HOME
+COPY . ./
 
+# --------------- Install python packages using `pip` ---------------
+
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt \
+	&& rm -rf requirements.txt
+
+# --------------- Configure Streamlit ---------------
 RUN mkdir -p /root/.streamlit
 
 RUN bash -c 'echo -e "\
@@ -20,8 +25,8 @@ RUN bash -c 'echo -e "\
 EXPOSE 8501
 EXPOSE 8080
 
+# --------------- Export envirennement variable ---------------
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
 
-COPY . /interactive-pandas-app
-
-CMD streamlit run --server.port 8501 --server.enableCORS false main.py
-
+CMD ["streamlit", "run", "--server.port", "8080", "main.py"]
