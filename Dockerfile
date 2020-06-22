@@ -18,7 +18,7 @@ RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt 
 RUN mkdir -p /root/.streamlit
 
 RUN bash -c
-echo "\
+"\
 [server]\n\
 headless = true\n\
 port = $PORT\n
