@@ -4,7 +4,7 @@ LABEL maintainer "João Herique Saraceni  <www.linkedin.com/in/joãohenriquesara
 
 
 # Copy local code to the container image.
-ENV  interactive-pandas-app/app
+ENV  interactive-pandas-app /app
 
 WORKDIR $interactive-pandas-app
 COPY . ./
